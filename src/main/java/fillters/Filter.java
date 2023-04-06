@@ -28,7 +28,7 @@ public class Filter implements jakarta.servlet.Filter {
 
         if (nv == null) {
             session.setAttribute("errorMessage", "Vui lòng đăng nhập");
-            res.sendRedirect("/CURD_war_exploded/nhan_vien/login");
+            res.sendRedirect("/CURD_war_exploded/nhan_vien/form");
         } else {
             filterChain.doFilter(req, res);
         }

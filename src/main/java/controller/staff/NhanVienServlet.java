@@ -11,11 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
-import view_model.NhanVienIndex;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -133,18 +131,10 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
         NhanVienEntity x = this.nvRepo.findById(UUID.fromString(request.getParameter("id")));
-        NhanVienIndex y = new NhanVienIndex(x.getId(), x.getMa(), x.getTen(), x.getTenDem(), x.getHo(), x.getGioiTinh(), x.getNgaySinh(), x.getDiaChi(), x.getSdt(), x.getMatKhau(), x.getIdGuiBc(), x.getTrangThai(), null, null);
-        if (x.getChucVuByIdCv() != null) {
-            y.setchucVu(x.getChucVuByIdCv().getId().toString());
 
-        }
-        if (x.getCuaHangByIdCh() != null) {
-
-            y.setCuaHang(x.getCuaHangByIdCh().getId().toString());
-        }
         request.setAttribute("listCh", this.chRepo.findAll());
         request.setAttribute("listCv", this.cvRepo.findAll());
-        request.setAttribute("nv", y);
+        request.setAttribute("nv", x);
         request.setAttribute("view", "/views/nhan_vien/edit.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);
@@ -159,32 +149,15 @@ public class NhanVienServlet extends HttpServlet {
         response.sendRedirect("/CURD_war_exploded/nhan_vien/index");
     }
 
-    private List<NhanVienIndex> convert(List<NhanVienEntity> nve) {
 
-        List<NhanVienIndex> nvi = new ArrayList<>();
-        for (NhanVienEntity x : nve) {
-            NhanVienIndex y = new NhanVienIndex(x.getId(), x.getMa(), x.getTen(), x.getTenDem(), x.getHo(), x.getGioiTinh(), x.getNgaySinh(), x.getDiaChi(), x.getSdt(), x.getMatKhau(), x.getIdGuiBc(), x.getTrangThai(), null, null);
-            if (x.getChucVuByIdCv() != null) {
-                y.setchucVu(x.getChucVuByIdCv().getTen());
-
-            }
-            if (x.getCuaHangByIdCh() != null) {
-
-                y.setCuaHang(x.getCuaHangByIdCh().getTen());
-            }
-            nvi.add(y);
-        }
-        System.out.println(nvi.size());
-        return nvi;
-    }
 
     protected void index(
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
         List<NhanVienEntity> nve = this.nvRepo.findAll();
-        List<NhanVienIndex> nvi = convert(nve);
-        request.setAttribute("list", nvi);
+
+        request.setAttribute("list", nve);
         request.setAttribute("view", "/views/nhan_vien/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);

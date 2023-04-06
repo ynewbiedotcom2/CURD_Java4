@@ -44,8 +44,8 @@
                     </td>
                     <td>${nv.ngaySinh}</td>
                     <td>${nv.diaChi}</td>
-                    <td>${nv.chucVu}</td>
-                    <td>${nv.cuaHang}</td>
+                    <td>${nv.chucVuByIdCv.ten}</td>
+                    <td>${nv.cuaHangByIdCh.ten}</td>
                     <td>${nv.gioiTinh}</td>
                     <td><a href="/CURD_war_exploded/nhan_vien/edit?id=${nv.id}" class="btn btn-outline-primary">Sửa</a>
                         <a style="margin-left: 5px;" href="/CURD_war_exploded/nhan_vien/delete?id=${nv.id}" class="btn btn-outline-danger">Xóa</a>

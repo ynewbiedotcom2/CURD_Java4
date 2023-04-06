@@ -40,7 +40,7 @@
                             <div class="col-10">
                                 <select name="idCv" class="form-select">
                                     <c:forEach items="${listCv}" var="x">
-                                        <option ${ nv.chucVu == x.id  ? "selected" : "" }
+                                        <option ${ nv.chucVuByIdCv.id == x.id  ? "selected" : "" }
                                                 value="${x.id}">${x.ten}</option>
                                     </c:forEach>
                                 </select>
@@ -59,7 +59,7 @@
                             <div class="col-10">
                                 <select name="idCh" class="form-select">
                                     <c:forEach items="${listCh}" var="sp">
-                                        <option  ${ nv.cuaHang == sp.id ? "selected" : "" }
+                                        <option  ${ nv.cuaHangByIdCh.id == sp.id ? "selected" : "" }
                                                 value="${sp.id}">${sp.ten}</option>
                                     </c:forEach>
                                 </select>

@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
-import view_model.spctIndex;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -78,19 +77,7 @@ public class SanPhamChiTietServlet extends HttpServlet {
                 .forward(request, response);
     }
 
-    private spctIndex convert(List<ChiTietSpEntity> x) {
-        spctIndex y = null;
-        for (ChiTietSpEntity i : x
-                
-        ) {
-             y = new spctIndex(i.getId() + "", "", "", "", "", i.getNamBh(), i.getMoTa(), i.getSoLuongTon(), i.getGiaNhap(), i.getGiaBan());
-            y.setDongSp(i.getDongSpByIdDongSp().getTen());
-            y.setMauSac(i.getMauSacByIdMauSac().getTen());
-            y.setSp(i.getSanPhamByIdSp().getTen());
-            y.setNsx(i.getNsxByIdNsx().getTen());
-        }
-        return y;
-    }
+
 
     protected void index(
             HttpServletRequest request,
