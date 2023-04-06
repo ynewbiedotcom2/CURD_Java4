@@ -41,13 +41,13 @@
                             <a class="nav-link active" aria-current="page" href="#">BÁN HÀNG</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">KHÁCH HÀNG</a>
+                            <a class="nav-link" href="/CURD_war_exploded/khach_hang/index">KHÁCH HÀNG</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">HÓA ĐƠN</a>
+                            <a class="nav-link" href="/CURD_war_exploded/nhan_vien/index">HÓA ĐƠN</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">NHÂN VIÊN</a>
+                            <a class="nav-link" href="/CURD_war_exploded/nhan_vien/index">NHÂN VIÊN</a>
                         </li>
 
                         <li class="nav-item dropdown">

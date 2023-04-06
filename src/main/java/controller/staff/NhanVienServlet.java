@@ -70,6 +70,59 @@ public class NhanVienServlet extends HttpServlet {
         }
     }
 
+    public boolean validateNhanVienEntity(NhanVienEntity nv) {
+        int check = 0;
+        if (nv.getMa() == null || nv.getMa().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập mã.");
+            check--;
+        }
+
+        if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập tên.");
+            check--;
+        }
+
+        if (nv.getHo() == null || nv.getHo().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập họ.");
+            check--;
+        }
+
+        if (nv.getNgaySinh() == null) {
+            System.out.println("Vui lòng nhập ngày sinh.");
+            check--;
+        }
+
+        if (nv.getDiaChi() == null || nv.getDiaChi().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập địa chỉ.");
+            check--;
+        }
+
+        if (nv.getSdt() == null || nv.getSdt().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập số điện thoại.");
+            check--;
+        }
+
+        if (nv.getMatKhau() == null || nv.getMatKhau().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập mật khẩu.");
+            check--;
+        }
+
+        // Kiểm tra định dạng số điện thoại bằng regex
+        String regex = "^(\\+84|0)\\d{9,10}$";
+
+
+        if (nv.getSdt().matches(regex)==false) {
+            System.out.println("Số điện thoại không hợp lệ!");
+            check--;
+        }
+
+
+        if (check < 0) {
+            return false;
+        }
+        return true;
+    }
+
     protected void form(
             HttpServletRequest request,
             HttpServletResponse response
@@ -84,7 +137,6 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
         NhanVienEntity nv = new NhanVienEntity();
-
         nv.setId(UUID.fromString(request.getParameter("id")));
         nv.setHo(request.getParameter("ho"));
         nv.setTenDem(request.getParameter("tenDem"));
@@ -96,12 +148,16 @@ public class NhanVienServlet extends HttpServlet {
         nv.setSdt(request.getParameter("sdt"));
         nv.setTrangThai(1);
         String date = request.getParameter("ngaySinh");
-        System.out.println(date);
+
         nv.setNgaySinh(Date.valueOf(date));
         nv.setChucVuByIdCv(cvRepo.findById(UUID.fromString(request.getParameter("idCv"))));
         nv.setCuaHangByIdCh(chRepo.findById(UUID.fromString(request.getParameter("idCh"))));
+        if (validateNhanVienEntity(nv) == true) {
+            this.nvRepo.update(nv);
+        } else {
+            System.out.println("lỗi: ");
+        }
 
-        this.nvRepo.update(nv);
 
         response.sendRedirect("/CURD_war_exploded/nhan_vien/index");
 
@@ -117,7 +173,11 @@ public class NhanVienServlet extends HttpServlet {
             BeanUtils.populate(nv, request.getParameterMap());
             nv.setChucVuByIdCv(cvRepo.findById(UUID.fromString(request.getParameter("idCv"))));
             nv.setCuaHangByIdCh(chRepo.findById(UUID.fromString(request.getParameter("idCh"))));
-            this.nvRepo.insert(nv);
+            if (validateNhanVienEntity(nv) == true) {
+                this.nvRepo.insert(nv);
+            } else {
+                System.out.println("lỗi: ");
+            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

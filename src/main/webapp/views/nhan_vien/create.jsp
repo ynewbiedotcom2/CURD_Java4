@@ -90,7 +90,7 @@
                     </div>
                     <div class="col-3">
                         <label>Sdt</label>
-                        <input type="Text" name="sdt" class="form-control" required/>
+                        <input type="tel" name="sdt" class="form-control" required/>
                     </div>
                     <div class="col-4">
                         <label>Mat Khau</label>
