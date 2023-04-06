@@ -78,13 +78,27 @@ public class NhanVienRepo {
         }
     }public NhanVienEntity findById(UUID id){
         String hql = "SELECT nv FROM NhanVienEntity nv where id = ?1";
-        TypedQuery<NhanVienEntity> query =  this.hSession.createQuery(hql);
-        query.setParameter(1,id);
+        TypedQuery<NhanVienEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
         try {
-           NhanVienEntity nv = query.getSingleResult();
+            NhanVienEntity nv = query.getSingleResult();
             System.out.println(nv.getTen());
             return nv;
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public NhanVienEntity findByMa(String ma) {
+        String hql = "SELECT nv FROM NhanVienEntity nv where nv.ma = ?1";
+        TypedQuery<NhanVienEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, ma);
+        try {
+            NhanVienEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }

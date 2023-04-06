@@ -10,20 +10,20 @@
 <%@ taglib prefix="f" uri="jakarta.tags.functions" %>
 <body style="background: rgb(201, 200, 200);">
 <div class="container ">
-    <div class="card mb-4 " style="margin: 50px 100px">
+    <div class="card mb-4 " style="margin: 100px 100px">
         <div class="col-10 offset-1">
 
-            <form method="POST" action="/CURD_war_exploded/kho_hang/store" validate>
+            <form method="POST" action="/CURD_war_exploded/kho_hang/update?idx=${ctsp.id}" validate>
                 <div class="row mt-3">
 
 
                     <div class="col-6">
                         <label>Năm Bảo Hành</label>
-                        <input type="number" name="namBh" min="0" class="form-control" required/>
+                        <input type="number" value="${ctsp.namBh}" min="0" name="namBh" class="form-control" required/>
                     </div>
                     <div class="col-6">
                         <label>Số Lượng Tồn</label>
-                        <input type="number" name="soLuongTon"min="0"  class="form-control" required/>
+                        <input type="number" name="soLuongTon" min="0"   value="${ctsp.soLuongTon}" class="form-control" required/>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@
                             </select>
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button"  class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#myModal">
                                     add
                                 </button>
@@ -106,17 +106,17 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <label>Giá Nhập</label>
-                        <input type="number" name="giaNhap"min="0"  class="form-control" required/>
+                        <input type="number" name="giaNhap" min="0" value="${ctsp.giaNhap}"  class="form-control" required/>
                     </div>
                     <div class="col-6">
                         <label>Giá Bán</label>
-                        <input type="number" name="giaBan"min="0"  class="form-control" required/>
+                        <input type="number" name="giaBan" min="0"  value="${ctsp.giaBan}" class="form-control" required/>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-12">
                         <label>Mô Tả</label>
-                        <textarea class="form-control" name="moTa" id="" rows="3"></textarea>
+                        <textarea class="form-control"  name="moTa"  rows="3">${ctsp.moTa}</textarea>
 
                     </div>
 

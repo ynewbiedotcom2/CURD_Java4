@@ -1,6 +1,7 @@
 package Repositories;
 
 import domain_model.CuaHangEntity;
+import domain_model.CuaHangEntity;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -26,6 +27,19 @@ public class CuaHangRepo {
         } catch (Exception e) {
             e.printStackTrace();
             this.hSession.getTransaction().rollback();
+
+        }
+    } public CuaHangEntity findByMa(String id) {
+        String hql = "SELECT nv FROM CuaHangEntity nv where nv.ma = ?1";
+        TypedQuery<CuaHangEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
+        try {
+            CuaHangEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
 
         }
     }

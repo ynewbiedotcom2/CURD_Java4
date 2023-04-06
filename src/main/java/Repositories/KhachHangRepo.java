@@ -90,4 +90,19 @@ public class KhachHangRepo {
             return null;
         }
     }
+
+    public KhachHangEntity findByMa(String ma) {
+
+        String hql = "SELECT nv FROM KhachHangEntity nv where nv.ma = ?1";
+        TypedQuery<KhachHangEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, ma);
+        try {
+            KhachHangEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package Repositories;
 
 import domain_model.SanPhamEntity;
+import domain_model.SanPhamEntity;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -35,6 +36,20 @@ public class SanPhamRepo {
         } catch (Exception e) {
             e.printStackTrace();
             this.hSession.getTransaction().rollback();
+
+        }
+    }
+    public SanPhamEntity findByMa(String id) {
+        String hql = "SELECT nv FROM SanPhamEntity nv where nv.ma = ?1";
+        TypedQuery<SanPhamEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
+        try {
+            SanPhamEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
 
         }
     }

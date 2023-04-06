@@ -12,6 +12,7 @@
 <head>
     <title>Cửa Hàng SECREST</title>
     <link rel="stylesheet" href="/CURD_war_exploded/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 </head>
 <body>
 
@@ -48,18 +49,22 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/CURD_war_exploded/nhan_vien/index">NHÂN VIÊN</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="/CURD_war_exploded/chuc_vu/index">CHỨC VỤ</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="/CURD_war_exploded/cua_hang/index">CỬA HÀNG</a>
                         </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="dropdownId" data-bs-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">KHO</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">DANH SÁCH SẢN PHẨM</a>
-                                <a class="dropdown-item" href="#">QL SẢN PHẨM</a>
-                                <a class="dropdown-item" href="#">QL NSX</a>
-                                <a class="dropdown-item" href="#">QL DÒNG</a>
-                                <a class="dropdown-item" href="#">QL MÀU SẮC</a>
-                                <a class="dropdown-item" href="#">THỐNG KÊ</a>
+                                <a class="dropdown-item" href="/CURD_war_exploded/kho_hang/index">DANH SÁCH SẢN PHẨM</a>
+                                <a class="dropdown-item" href="/CURD_war_exploded/san_pham/index">QL SẢN PHẨM</a>
+                                <a class="dropdown-item" href="/CURD_war_exploded/nha_san_xuat/index">QL NSX</a>
+                                <a class="dropdown-item" href="/CURD_war_exploded/dong_sp/index">QL DÒNG</a>
+                                <a class="dropdown-item" href="/CURD_war_exploded/mau_sac/index">QL MÀU SẮC</a>
+                                <a class="dropdown-item" href="/CURD_war_exploded/nhan_vien/index">THỐNG KÊ</a>
                             </div>
                         </li>
                     </ul>

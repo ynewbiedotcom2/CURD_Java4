@@ -1,7 +1,6 @@
 package Repositories;
 
 import domain_model.ChucVuEntity;
-import domain_model.ChucVuEntity;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -64,8 +63,24 @@ public class ChucVuRepo {
             return null;
         }
     }
+
     public ChucVuEntity findById(UUID id) {
         String hql = "SELECT nv FROM ChucVuEntity nv where id = ?1";
+        TypedQuery<ChucVuEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
+        try {
+            ChucVuEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+
+    public ChucVuEntity findByMa(String id) {
+        String hql = "SELECT nv FROM ChucVuEntity nv where nv.ma = ?1";
         TypedQuery<ChucVuEntity> query = this.hSession.createQuery(hql);
         query.setParameter(1, id);
         try {

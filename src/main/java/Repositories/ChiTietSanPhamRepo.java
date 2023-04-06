@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import untils.hibernateUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ChiTietSanPhamRepo {
     private Session hSession;
@@ -45,6 +46,7 @@ public class ChiTietSanPhamRepo {
     }
 
     public void delete(ChiTietSpEntity ctsp) {
+        System.out.println(ctsp.getId());
         try {
             this.hSession.getTransaction().begin();
             this.hSession.delete(ctsp);
@@ -72,7 +74,7 @@ public class ChiTietSanPhamRepo {
         String hql = "SELECT ctsp FROM ChiTietSpEntity ctsp where ctsp.id = ?1";
         TypedQuery<ChiTietSpEntity> query =
                 this.hSession.createQuery(hql, ChiTietSpEntity.class);
-        query.setParameter(1, id);
+        query.setParameter(1, UUID.fromString(id));
         try {
             return query.getSingleResult();
 

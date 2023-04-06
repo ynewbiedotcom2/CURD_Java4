@@ -1,6 +1,7 @@
 package Repositories;
 
 import domain_model.DongSpEntity;
+import domain_model.DongSpEntity;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -65,6 +66,20 @@ public class DongSpRepo {
     }
     public DongSpEntity findById(UUID id) {
         String hql = "SELECT nv FROM DongSpEntity nv where id = ?1";
+        TypedQuery<DongSpEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
+        try {
+            DongSpEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+    public DongSpEntity findByMa(String id) {
+        String hql = "SELECT nv FROM DongSpEntity nv where nv.ma = ?1";
         TypedQuery<DongSpEntity> query = this.hSession.createQuery(hql);
         query.setParameter(1, id);
         try {

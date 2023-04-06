@@ -76,6 +76,10 @@ public class NhanVienServlet extends HttpServlet {
             System.out.println("Vui lòng nhập mã.");
             check--;
         }
+        if (this.nvRepo.findByMa(nv.getMa()) != null ) {
+            System.out.println("Vui lòng nhập mã Khác.");
+            check--;
+        }
 
         if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
             System.out.println("Vui lòng nhập tên.");
@@ -106,6 +110,7 @@ public class NhanVienServlet extends HttpServlet {
             System.out.println("Vui lòng nhập mật khẩu.");
             check--;
         }
+
 
         // Kiểm tra định dạng số điện thoại bằng regex
         String regex = "^(\\+84|0)\\d{9,10}$";

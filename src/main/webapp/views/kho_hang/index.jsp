@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="f" uri="jakarta.tags.functions" %>
+<a class="btn btn-outline-success float-end" href="/CURD_war_exploded/kho_hang/create">Thêm mới</a>
 <c:if test="${f:length(list)==0}"><h3 class="text text-center">Không có dữ liêu</h3></c:if>
 <c:if test="${f:length(list)!=0}">
-    <table class="table table-striped">
+    <table class="table table-responsive">
         <thead>
         <tr>
             <th>Tên</th>
@@ -26,24 +27,21 @@
         </thead>
         <tbody>
         <c:forEach items="${list}" var="kh">
-            <tr>
-
-                <th>${kh.sp}</th>
-                <th><input class="form-control form-control-color " type="color" value="${kh.mauSac}" disabled>
+            <tr class="table align-middle">
+                <th>${kh.sanPhamByIdSp.ten}</th>
+                <th style="color:${kh.mauSacByIdMauSac.ma};text-shadow:0px 0px 1px black  ">${kh.mauSacByIdMauSac.ten}
                 </th>
-                <th>${kh.nsx}</th>
-                <th>${kh.dongSp}</th>
-                <th>${kh.namBaoHanh}</th>
+                <th>${kh.nsxByIdNsx.ten}</th>
+                <th>${kh.dongSpByIdDongSp.ten}</th>
+                <th>${kh.namBh}</th>
                 <th>${kh.soLuongTon}</th>
                 <th>${kh.giaNhap}</th>
                 <th>${kh.giaBan}</th>
                 <th><a class="btn btn-primary"
-                       href="/Demo2_war_exploded/products/edit?id=${kh.id}"
-                       role="button"><i
-                        class="bi bi-pencil-square"></i></a>
-                    <a class="btn btn-danger" href="/Demo2_war_exploded/products/delete?id=${kh.id}"
-                       role="button"><i
-                            class="bi bi-trash"></i></a>
+                       href="/CURD_war_exploded/kho_hang/edit?id=${kh.id}"
+                       role="button">Sửa</a>
+                    <a class="btn btn-danger" href="/CURD_war_exploded/kho_hang/delete?id=${kh.id}"
+                       role="button">Xóa</a>
                 </th>
             </tr>
         </c:forEach>

@@ -1,6 +1,7 @@
 package Repositories;
 
 import domain_model.MauSacEntity;
+import domain_model.MauSacEntity;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -65,6 +66,20 @@ public class MauSacRepo {
     }
     public MauSacEntity findById(UUID id) {
         String hql = "SELECT nv FROM MauSacEntity nv where id = ?1";
+        TypedQuery<MauSacEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
+        try {
+            MauSacEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+    public MauSacEntity findByMa(String id) {
+        String hql = "SELECT nv FROM MauSacEntity nv where nv.ma = ?1";
         TypedQuery<MauSacEntity> query = this.hSession.createQuery(hql);
         query.setParameter(1, id);
         try {

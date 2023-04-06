@@ -1,6 +1,7 @@
 package Repositories;
 
 import domain_model.NsxEntity;
+import domain_model.NsxEntity;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -35,6 +36,20 @@ public class NsxRepo {
         } catch (Exception e) {
             e.printStackTrace();
             this.hSession.getTransaction().rollback();
+
+        }
+    }
+    public NsxEntity findByMa(String id) {
+        String hql = "SELECT nv FROM NsxEntity nv where nv.ma = ?1";
+        TypedQuery<NsxEntity> query = this.hSession.createQuery(hql);
+        query.setParameter(1, id);
+        try {
+            NsxEntity nv = query.getSingleResult();
+            System.out.println(nv.getTen());
+            return nv;
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
 
         }
     }
