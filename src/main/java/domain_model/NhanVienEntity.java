@@ -16,20 +16,30 @@ public class NhanVienEntity {
 
     @Column(name = "Ma")
     private String ma;
+
     @Column(name = "Ten")
     private String ten;
+
     @Column(name = "TenDem")
     private String tenDem;
+
     @Column(name = "Ho")
     private String ho;
+
     @Column(name = "GioiTinh")
     private String gioiTinh;
+
     @Column(name = "NgaySinh")
     private Date ngaySinh;
+
+
     @Column(name = "DiaChi")
     private String diaChi;
+
     @Column(name = "Sdt")
     private String sdt;
+
+
     @Column(name = "MatKhau")
     private String matKhau;
     @Column(name = "IdGuiBC", nullable = true)

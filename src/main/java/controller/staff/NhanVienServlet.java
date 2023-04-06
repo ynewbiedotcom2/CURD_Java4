@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,7 @@ public class NhanVienServlet extends HttpServlet {
     private NhanVienRepo nvRepo;
     private ChucVuRepo cvRepo;
     private CuaHangRepo chRepo;
+
 
     public NhanVienServlet() {
         this.nvRepo = new NhanVienRepo();
@@ -82,19 +84,29 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
         NhanVienEntity nv = new NhanVienEntity();
-        try {
-            BeanUtils.populate(nv, request.getParameterMap());
-            nv.setChucVuByIdCv(cvRepo.findById(UUID.fromString(request.getParameter("idCv"))));
-            nv.setCuaHangByIdCh(chRepo.findById(UUID.fromString(request.getParameter("idCh"))));
-            this.nvRepo.update(nv);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+
+        nv.setId(UUID.fromString(request.getParameter("id")));
+        nv.setHo(request.getParameter("ho"));
+        nv.setTenDem(request.getParameter("tenDem"));
+        nv.setTen(request.getParameter("ten"));
+        nv.setDiaChi(request.getParameter("diaChi"));
+        nv.setGioiTinh(request.getParameter("gioiTinh"));
+        nv.setMa(request.getParameter("ma"));
+        nv.setMatKhau(request.getParameter("matKhau"));
+        nv.setSdt(request.getParameter("sdt"));
+        nv.setTrangThai(1);
+        String date = request.getParameter("ngaySinh");
+        System.out.println(date);
+        nv.setNgaySinh(Date.valueOf(date));
+        nv.setChucVuByIdCv(cvRepo.findById(UUID.fromString(request.getParameter("idCv"))));
+        nv.setCuaHangByIdCh(chRepo.findById(UUID.fromString(request.getParameter("idCh"))));
+
+        this.nvRepo.update(nv);
 
         response.sendRedirect("/CURD_war_exploded/nhan_vien/index");
+
     }
+
 
     protected void store(
             HttpServletRequest request,

@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet({
         "/khach_hang/index",    // GET
@@ -47,8 +48,8 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        String ma = request.getParameter("Ma");
-        KhachHangEntity domainModelKH = this.khRepo.findByMa(ma);
+        String ma = request.getParameter("id");
+        KhachHangEntity domainModelKH = this.khRepo.findById(ma);
         request.setAttribute("kh", domainModelKH);
         request.setAttribute("view", "/views/khach_hang/edit.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -59,8 +60,8 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        request.setAttribute("danhSach", this.khRepo.findAll());
-        request.setAttribute("view", "/views/khach_hang/create.jsp");
+        request.setAttribute("list", this.khRepo.findAll());
+        request.setAttribute("view", "/views/khach_hang/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);
     }
@@ -78,8 +79,8 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        String ma = request.getParameter("Ma");
-        KhachHangEntity domainModelKH = this.khRepo.findByMa(ma);
+        String ma = request.getParameter("id");
+        KhachHangEntity domainModelKH = this.khRepo.findById(ma);
         if (domainModelKH == null) {
             System.out.println("Không tìm thấy");
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -108,11 +109,11 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        String ma = request.getParameter("Ma");
-        KhachHangEntity domainModelKH = this.khRepo.findByMa(ma);
-
+        String ma = request.getParameter("idx");
+        KhachHangEntity domainModelKH = new KhachHangEntity();
         try {
             BeanUtils.populate(domainModelKH, request.getParameterMap());
+            domainModelKH.setId(UUID.fromString(ma));
             this.khRepo.update(domainModelKH);
         } catch (Exception e) {
             e.printStackTrace();

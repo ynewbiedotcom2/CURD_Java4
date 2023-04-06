@@ -76,10 +76,11 @@ public class KhachHangRepo {
             e.printStackTrace();
             return null;
         }
-    }public KhachHangEntity findByMa(String ma){
-        String hql = "SELECT nv FROM KhachHangEntity nv where nv.ma = ?1";
+    }public KhachHangEntity findById(String ma){
+
+        String hql = "SELECT nv FROM KhachHangEntity nv where nv.id = ?1";
         TypedQuery<KhachHangEntity> query =  this.hSession.createQuery(hql);
-        query.setParameter(1,ma);
+        query.setParameter(1,UUID.fromString(ma));
         try {
             KhachHangEntity nv = query.getSingleResult();
             System.out.println(nv.getTen());

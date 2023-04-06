@@ -12,60 +12,61 @@
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Mã</label>
-                    <input type="text" name="Ma" class="form-control" />
+                    <input type="text" name="ma" class="form-control" required/>
                 </div>
                 <div class="col-6">
                     <label>Họ</label>
-                    <input type="text" name="Ho" class="form-control" />
+                    <input type="text" name="ho" class="form-control" required/>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Tên đệm</label>
-                    <input type="text" name="TenDem" class="form-control" />
+                    <input type="text" name="tenDem" class="form-control" required/>
                 </div>
                 <div class="col-6">
                     <label>Tên</label>
-                    <input type="text" name="Ten" class="form-control" />
+                    <input type="text" name="ten" class="form-control" required/>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Ngày sinh</label>
-                    <input type="date" name="NgaySinh" class="form-control" />
+                    <input type="date" name="ngaySinh" class="form-control" required/>
                 </div>
                 <div class="col-6">
                     <label>Số điện thoại</label>
-                    <input type="tel" name="Sdt" class="form-control" />
+                    <input type="tel" name="sdt" class="form-control"required />
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Địa chỉ</label>
-                    <input type="text" name="DiaChi" class="form-control" />
+                    <input type="text" name="diaChi" class="form-control" required/>
                 </div>
                 <div class="col-6">
                     <label>Mật khẩu</label>
-                    <input type="password" name="MatKhau" class="form-control" />
+                    <input type="password" name="matKhau" class="form-control"required />
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Quốc gia</label>
-                    <select name="QuocGia" class="form-select">
+                    <select name="quocGia" class="form-select">
                         <option value="vn">Việt Nam</option>
                         <option value="en">Anh</option>
+
                     </select>
                 </div>
                 <div class="col-6">
                     <label>Thành phố</label>
-                    <select name="ThanhPho" class="form-select">
+                    <select name="thanhPho" class="form-select">
                         <option value="hanoi">Hà Nội</option>
                         <option value="london">London</option>
                     </select>
                 </div>
             </div><div class="row mt-3">
-            <div class="col-6">
+            <div class="col-6 float-end">
                 <button class="btn btn-primary">Thêm mới</button>
             </div>
             <div class="col-6"></div>

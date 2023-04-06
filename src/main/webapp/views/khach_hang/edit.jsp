@@ -7,66 +7,66 @@
 </head>
 <body>
     <div class="col-8 offset-2 bg-light">
-        <form method="POST"
-          action="/CURD_war_exploded/khach-hang/update?Ma=${ kh.ma }">
+        <form method="POST" validate
+          action="/CURD_war_exploded/khach_hang/update?idx=${ kh.id }">
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Mã</label>
-                    <input type="text" class="form-control" value="${ kh.ma }" disabled />
+                    <input type="text" name="ma" class="form-control" value="${ kh.ma }" required/>
                 </div>
                 <div class="col-6">
                     <label>Họ</label>
-                    <input type="text" name="Ho" class="form-control" value="${ kh.ho }" />
+                    <input type="text" name="ho" class="form-control" value="${ kh.ho }" required/>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Tên đệm</label>
-                    <input type="text" name="TenDem" class="form-control" value="${ kh.tenDem }" />
+                    <input type="text" name="tenDem" class="form-control" value="${ kh.tenDem }" required/>
                 </div>
                 <div class="col-6">
                     <label>Tên</label>
-                    <input type="text" name="Ten" class="form-control" value="${ kh.ten }" />
+                    <input type="text" name="ten" class="form-control" value="${ kh.ten }" required/>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Ngày sinh</label>
-                    <input type="date" name="NgaySinh" class="form-control" value="${ kh.ngaySinh }" />
+                    <input type="date" name="ngaySinh" class="form-control" value="${ kh.ngaySinh }" required/>
                 </div>
                 <div class="col-6">
                     <label>Số điện thoại</label>
-                    <input type="tel" name="Sdt" class="form-control" value="${ kh.sdt }" />
+                    <input type="tel" name="sdt" class="form-control" value="${ kh.sdt }"required />
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Địa chỉ</label>
-                    <input type="text" name="DiaChi" class="form-control" value="${ kh.diaChi }" />
+                    <input type="text" name="diaChi" class="form-control" value="${ kh.diaChi }" required/>
                 </div>
                 <div class="col-6">
                     <label>Mật khẩu</label>
-                    <input type="password" name="MatKhau" class="form-control" />
+                    <input type="password" value="${ kh.matKhau }" name="matKhau" class="form-control" required/>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Quốc gia</label>
-                    <select name="QuocGia" class="form-select">
+                    <select name="quocGia" class="form-select">
                         <option value="vn" ${ kh.quocGia == "vn" ? "selected" : "" }>Việt Nam</option>
                         <option value="en" ${ kh.quocGia == "en" ? "selected" : "" }>Anh</option>
                     </select>
                 </div>
                 <div class="col-6">
                     <label>Thành phố</label>
-                    <select name="ThanhPho" class="form-select">
+                    <select name="thanhPho" class="form-select">
                         <option value="hanoi">Hà Nội</option>
                         <option value="london">London</option>
                     </select>
                 </div>
             </div><div class="row mt-3">
-            <div class="col-6">
-                <button class="btn btn-primary">Thêm mới</button>
+            <div class="col-6 float-end" >
+                <button class="btn btn-primary">LƯU</button>
             </div>
             <div class="col-6"></div>
         </div>
