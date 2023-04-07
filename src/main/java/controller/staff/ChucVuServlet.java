@@ -7,9 +7,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @WebServlet(name = "ChucVuServlet", value = {"/chuc_vu/index",
@@ -20,6 +22,7 @@ import java.util.UUID;
         "/chuc_vu/update"})
 public class ChucVuServlet extends HttpServlet {
     private ChucVuRepo chRepo;
+    List<String> listError = null;
 
     public ChucVuServlet() {
         this.chRepo = new ChucVuRepo();
@@ -46,6 +49,8 @@ public class ChucVuServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Sửa Thông Tin Chuc Vu");
         String ma = request.getParameter("id");
         ChucVuEntity domainModelKH = this.chRepo.findById(UUID.fromString(ma));
         request.setAttribute("nv", domainModelKH);
@@ -57,7 +62,8 @@ public class ChucVuServlet extends HttpServlet {
     protected void index(
             HttpServletRequest request,
             HttpServletResponse response
-    ) throws ServletException, IOException {
+    ) throws ServletException, IOException {HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Danh Sách Chức Vụ");
         request.setAttribute("list", this.chRepo.findAll());
         request.setAttribute("view", "/views/chuc_vu/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -68,6 +74,8 @@ public class ChucVuServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Thêm Chức Vụ");
         request.setAttribute("view", "/views/chuc_vu/create.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);

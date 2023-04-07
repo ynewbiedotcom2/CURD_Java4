@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
@@ -69,7 +70,8 @@ public class SanPhamChiTietServlet extends HttpServlet {
     protected void create(
             HttpServletRequest request,
             HttpServletResponse response
-    ) throws ServletException, IOException {
+    ) throws ServletException, IOException {HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Tạo Mới Sản Phẩm");
         request.setAttribute("listMs", this.msRepo.findAll());
         request.setAttribute("listNsx", this.nsxRepo.findAll());
         request.setAttribute("listDong", this.dongSpRepo.findAll());
@@ -85,6 +87,8 @@ public class SanPhamChiTietServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Danh Sách Chi Tiết Sản Phẩm");
         request.setAttribute("list", this.ctspRepo.findAll());
         request.setAttribute("view", "/views/kho_hang/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -96,6 +100,8 @@ public class SanPhamChiTietServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Sửa Thông Tin Sản Phẩm");
         ChiTietSpEntity ctsp = this.ctspRepo.findById(request.getParameter("id"));
         request.setAttribute("listMs", this.msRepo.findAll());
         request.setAttribute("listNsx", this.nsxRepo.findAll());

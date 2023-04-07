@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
@@ -46,6 +47,8 @@ public class MauSacServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Sửa Thông Tin Màu Sắc");
         String ma = request.getParameter("id");
         MauSacEntity domainModelKH = this.chRepo.findById(UUID.fromString(ma));
         request.setAttribute("nv", domainModelKH);
@@ -58,6 +61,8 @@ public class MauSacServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Danh Sách Màu Sắc");
         request.setAttribute("list", this.chRepo.findAll());
         request.setAttribute("view", "/views/mau_sac/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -68,6 +73,8 @@ public class MauSacServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Thêm Màu Sắc");
         request.setAttribute("view", "/views/mau_sac/create.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);

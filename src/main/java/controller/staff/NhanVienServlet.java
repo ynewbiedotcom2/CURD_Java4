@@ -15,6 +15,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +33,7 @@ public class NhanVienServlet extends HttpServlet {
     private NhanVienRepo nvRepo;
     private ChucVuRepo cvRepo;
     private CuaHangRepo chRepo;
+    private List<String> listError = new ArrayList<>();
 
 
     public NhanVienServlet() {
@@ -74,40 +76,48 @@ public class NhanVienServlet extends HttpServlet {
         int check = 0;
         if (nv.getMa() == null || nv.getMa().trim().isEmpty()) {
             System.out.println("Vui lòng nhập mã.");
+            listError.add("Vui lòng nhập mã.");
             check--;
         }
         if (this.nvRepo.findByMa(nv.getMa()) != null ) {
             System.out.println("Vui lòng nhập mã Khác.");
+            listError.add("Vui lòng nhập mã khac.");
             check--;
         }
 
         if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
             System.out.println("Vui lòng nhập tên.");
+            listError.add("Vui lòng nhập ten.");
             check--;
         }
 
         if (nv.getHo() == null || nv.getHo().trim().isEmpty()) {
             System.out.println("Vui lòng nhập họ.");
+            listError.add("Vui lòng nhập ho.");
             check--;
         }
 
         if (nv.getNgaySinh() == null) {
             System.out.println("Vui lòng nhập ngày sinh.");
+            listError.add("Vui lòng nhập ngay sinh.");
             check--;
         }
 
         if (nv.getDiaChi() == null || nv.getDiaChi().trim().isEmpty()) {
             System.out.println("Vui lòng nhập địa chỉ.");
+            listError.add("Vui lòng nhập dia chi.");
             check--;
         }
 
         if (nv.getSdt() == null || nv.getSdt().trim().isEmpty()) {
             System.out.println("Vui lòng nhập số điện thoại.");
+            listError.add("Vui lòng nhập sdt.");
             check--;
         }
 
         if (nv.getMatKhau() == null || nv.getMatKhau().trim().isEmpty()) {
             System.out.println("Vui lòng nhập mật khẩu.");
+            listError.add("Vui lòng nhập mat khau.");
             check--;
         }
 
@@ -116,70 +126,79 @@ public class NhanVienServlet extends HttpServlet {
         String regex = "^(\\+84|0)\\d{9,10}$";
 
 
-        if (nv.getSdt().matches(regex)==false) {
+        if (nv.getSdt().matches(regex) == false) {
             System.out.println("Số điện thoại không hợp lệ!");
+            listError.add("Vui lòng nhập sdt hop le.");
             check--;
         }
 
 
         if (check < 0) {
             return false;
+        }return true;}
+        public boolean validateNhanVienEntity2 (NhanVienEntity nv){
+            int check = 0;
+            if (nv.getMa() == null || nv.getMa().trim().isEmpty()) {
+                System.out.println("Vui lòng nhập mã.");
+                listError.add("Vui lòng nhập mã.");
+                check--;
+            }
+
+
+            if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
+                System.out.println("Vui lòng nhập tên.");
+                listError.add("Vui lòng nhập ten.");
+                check--;
+            }
+
+            if (nv.getHo() == null || nv.getHo().trim().isEmpty()) {
+                System.out.println("Vui lòng nhập họ.");
+                listError.add("Vui lòng nhập ho.");
+                check--;
+            }
+
+            if (nv.getNgaySinh() == null) {
+                System.out.println("Vui lòng nhập ngày sinh.");
+                listError.add("Vui lòng nhập ngay sinh.");
+                check--;
+            }
+
+            if (nv.getDiaChi() == null || nv.getDiaChi().trim().isEmpty()) {
+                System.out.println("Vui lòng nhập địa chỉ.");
+                listError.add("Vui lòng nhập dia chi.");
+                check--;
+            }
+
+            if (nv.getSdt() == null || nv.getSdt().trim().isEmpty()) {
+                System.out.println("Vui lòng nhập số điện thoại.");
+                listError.add("Vui lòng nhập sdt.");
+                check--;
+            }
+
+            if (nv.getMatKhau() == null || nv.getMatKhau().trim().isEmpty()) {
+                System.out.println("Vui lòng nhập mật khẩu.");
+                listError.add("Vui lòng nhập mat khau.");
+                check--;
+            }
+
+
+            // Kiểm tra định dạng số điện thoại bằng regex
+            String regex = "^(\\+84|0)\\d{9,10}$";
+
+
+            if (nv.getSdt().matches(regex) == false) {
+                System.out.println("Số điện thoại không hợp lệ!");
+                listError.add("Vui lòng nhập sdt hop le.");
+                check--;
+            }
+
+
+            if (check < 0) {
+                return false;
+            }
+            return true;
         }
-        return true;
-    }public boolean validateNhanVienEntity2(NhanVienEntity nv) {
-        int check = 0;
-        if (nv.getMa() == null || nv.getMa().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập mã.");
-            check--;
-        }
 
-
-        if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập tên.");
-            check--;
-        }
-
-        if (nv.getHo() == null || nv.getHo().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập họ.");
-            check--;
-        }
-
-        if (nv.getNgaySinh() == null) {
-            System.out.println("Vui lòng nhập ngày sinh.");
-            check--;
-        }
-
-        if (nv.getDiaChi() == null || nv.getDiaChi().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập địa chỉ.");
-            check--;
-        }
-
-        if (nv.getSdt() == null || nv.getSdt().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập số điện thoại.");
-            check--;
-        }
-
-        if (nv.getMatKhau() == null || nv.getMatKhau().trim().isEmpty()) {
-            System.out.println("Vui lòng nhập mật khẩu.");
-            check--;
-        }
-
-
-        // Kiểm tra định dạng số điện thoại bằng regex
-        String regex = "^(\\+84|0)\\d{9,10}$";
-
-
-        if (nv.getSdt().matches(regex)==false) {
-            System.out.println("Số điện thoại không hợp lệ!");
-            check--;
-        }
-
-
-        if (check < 0) {
-            return false;
-        }
-        return true;
-    }
 
     protected void form(
             HttpServletRequest request,
@@ -214,6 +233,8 @@ public class NhanVienServlet extends HttpServlet {
             this.nvRepo.update(nv);
         } else {
             System.out.println("lỗi: ");
+            HttpSession session = request.getSession();
+            session.setAttribute("listError",listError);  session.setAttribute("errorMessage", "loi o vi tri");
         }
 
 
@@ -235,6 +256,8 @@ public class NhanVienServlet extends HttpServlet {
                 this.nvRepo.insert(nv);
             } else {
                 System.out.println("lỗi: ");
+                HttpSession session = request.getSession();
+                session.setAttribute("listError",listError);  session.setAttribute("errorMessage", "loi o vi tri");
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -249,26 +272,29 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        request.setAttribute("listCh", this.chRepo.findAll());
-        request.setAttribute("listCv", this.cvRepo.findAll());
-        request.setAttribute("view", "/views/nhan_vien/create.jsp");
-        request.getRequestDispatcher("/views/trang_chu/layout.jsp")
-                .forward(request, response);
-    }
+            HttpSession session = request.getSession();
+            session.setAttribute("curentPage", "Thêm Nhân Viên Mới");
+            request.setAttribute("listCh", this.chRepo.findAll());
+            request.setAttribute("listCv", this.cvRepo.findAll());
+            request.setAttribute("view", "/views/nhan_vien/create.jsp");
+            request.getRequestDispatcher("/views/trang_chu/layout.jsp")
+                    .forward(request, response);
+        }
 
     protected void edit(
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        NhanVienEntity x = this.nvRepo.findById(UUID.fromString(request.getParameter("id")));
-
-        request.setAttribute("listCh", this.chRepo.findAll());
-        request.setAttribute("listCv", this.cvRepo.findAll());
-        request.setAttribute("nv", x);
-        request.setAttribute("view", "/views/nhan_vien/edit.jsp");
-        request.getRequestDispatcher("/views/trang_chu/layout.jsp")
-                .forward(request, response);
-    }
+            NhanVienEntity x = this.nvRepo.findById(UUID.fromString(request.getParameter("id")));
+            HttpSession session = request.getSession();
+            session.setAttribute("curentPage", "Sửa Thông Tin Nhân Viên");
+            request.setAttribute("listCh", this.chRepo.findAll());
+            request.setAttribute("listCv", this.cvRepo.findAll());
+            request.setAttribute("nv", x);
+            request.setAttribute("view", "/views/nhan_vien/edit.jsp");
+            request.getRequestDispatcher("/views/trang_chu/layout.jsp")
+                    .forward(request, response);
+        }
 
     protected void delete(
             HttpServletRequest request,
@@ -285,13 +311,14 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        List<NhanVienEntity> nve = this.nvRepo.findAll();
-
-        request.setAttribute("list", nve);
-        request.setAttribute("view", "/views/nhan_vien/index.jsp");
-        request.getRequestDispatcher("/views/trang_chu/layout.jsp")
-                .forward(request, response);
-    }
+            List<NhanVienEntity> nve = this.nvRepo.findAll();
+            HttpSession session = request.getSession();
+            session.setAttribute("curentPage", "Danh Sách Nhân Viên");
+            request.setAttribute("list", nve);
+            request.setAttribute("view", "/views/nhan_vien/index.jsp");
+            request.getRequestDispatcher("/views/trang_chu/layout.jsp")
+                    .forward(request, response);
+        }
 
     protected void login(
             HttpServletRequest request,
@@ -304,7 +331,7 @@ public class NhanVienServlet extends HttpServlet {
 
         if (nv == null) {
             session.setAttribute("errorMessage", "Sai tài khoản/mật khẩu");
-            response.sendRedirect("/CURD_war_exploded/nhan_vien/login");
+            response.sendRedirect("/CURD_war_exploded/nhan_vien/form");
         } else {
             session.setAttribute("errorMessage", null);
             response.sendRedirect("/CURD_war_exploded/trang_chu/home");

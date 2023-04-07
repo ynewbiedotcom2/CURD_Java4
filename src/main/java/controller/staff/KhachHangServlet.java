@@ -7,9 +7,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @WebServlet({
@@ -22,7 +25,7 @@ import java.util.UUID;
 })
 public class KhachHangServlet extends HttpServlet {
     private KhachHangRepo khRepo;
-
+    private List<String> listError = new ArrayList<>();
     public KhachHangServlet() {
         this.khRepo = new KhachHangRepo();
     }
@@ -48,6 +51,8 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Sửa Thông Tin Khách Hàng");
         String ma = request.getParameter("id");
         KhachHangEntity domainModelKH = this.khRepo.findById(ma);
         request.setAttribute("kh", domainModelKH);
@@ -60,6 +65,8 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Danh Sách Khách Hàng");
         request.setAttribute("list", this.khRepo.findAll());
         request.setAttribute("view", "/views/khach_hang/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -70,6 +77,8 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Thêm Khách Hàng");
         request.setAttribute("view", "/views/khach_hang/create.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);
@@ -117,10 +126,15 @@ public class KhachHangServlet extends HttpServlet {
 
             if (validateKhachHangEntity2(domainModelKH)) {
                 this.khRepo.update(domainModelKH);
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("listError", listError);
+                session.setAttribute("errorMessage", "loi o vi tri");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+
         }
 
         response.sendRedirect("/CURD_war_exploded/khach_hang/index");
@@ -133,12 +147,16 @@ public class KhachHangServlet extends HttpServlet {
         KhachHangEntity domainModelKH = new KhachHangEntity();
         try {
             BeanUtils.populate(domainModelKH, request.getParameterMap());
-            if (validateKhachHangEntity(domainModelKH)){
+            if (validateKhachHangEntity(domainModelKH)) {
                 this.khRepo.insert(domainModelKH);
                 System.out.println("Thêm thành công");
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("listError", listError);  session.setAttribute("errorMessage", "loi o vi tri");
             }
         } catch (Exception e) {
             e.printStackTrace();
+
         }
 
 
@@ -147,49 +165,60 @@ public class KhachHangServlet extends HttpServlet {
 
     public boolean validateKhachHangEntity(KhachHangEntity kh) {
         int check = 0;
-        if (kh.getMa() == null || kh.getMa().trim().isEmpty()) {
-            System.out.println("Mã không được để trống!");
-            check--;
-        }
+
         if (this.khRepo.findByMa(kh.getMa()) != null) {
             System.out.println("Mã đã tồn tại!");
+            listError.add("Ma da ton tai");
+            check--;
+        }
+
+        if (kh.getMa() == null || kh.getMa().trim().isEmpty()) {
+            System.out.println("Mã không được để trống!");
+            listError.add("Mã không được để trống!");
             check--;
         }
 
         if (kh.getTen() == null || kh.getTen().trim().isEmpty()) {
             System.out.println("Tên không được để trống!");
+            listError.add("Ten không được để trống!");
             check--;
         }
 
         if (kh.getHo() == null || kh.getHo().trim().isEmpty()) {
             System.out.println("Họ không được để trống!");
+            listError.add("Ho không được để trống!");
             check--;
         }
 
 
         if (kh.getNgaySinh() == null) {
             System.out.println("Ngày sinh không được để trống!");
+            listError.add("Ngay sinh không được để trống!");
             check--;
         }
 
         if (kh.getDiaChi() == null || kh.getDiaChi().trim().isEmpty()) {
             System.out.println("Địa chỉ không được để trống!");
+            listError.add("dia chi không được để trống!");
             check--;
         }
 
         String regex = "^(\\+84|0)\\d{9,10}$";
-        if (kh.getSdt().matches(regex)==false) {
+        if (kh.getSdt().matches(regex) == false) {
             System.out.println("Số điện thoại không hợp lệ!");
+            listError.add("Số điện thoại không hợp lệ!");
             check--;
         }
 
         if (kh.getSdt() == null || kh.getSdt().trim().isEmpty()) {
             System.out.println("Số điện thoại không được để trống!");
+            listError.add("Số điện thoại không được để trống!");
             check--;
         }
 
         if (kh.getMatKhau() == null || kh.getMatKhau().isEmpty()) {
             System.out.println("Mật khẩu không được để trống!");
+            listError.add("Mật khẩu không được để trống!");
             check--;
         }
         if (check < 0) {
@@ -204,43 +233,51 @@ public class KhachHangServlet extends HttpServlet {
         int check = 0;
         if (kh.getMa() == null || kh.getMa().trim().isEmpty()) {
             System.out.println("Mã không được để trống!");
+            listError.add("Mã không được để trống!");
             check--;
         }
 
         if (kh.getTen() == null || kh.getTen().trim().isEmpty()) {
             System.out.println("Tên không được để trống!");
+            listError.add("Ten không được để trống!");
             check--;
         }
 
         if (kh.getHo() == null || kh.getHo().trim().isEmpty()) {
             System.out.println("Họ không được để trống!");
+            listError.add("Ho không được để trống!");
             check--;
         }
 
 
         if (kh.getNgaySinh() == null) {
             System.out.println("Ngày sinh không được để trống!");
+            listError.add("Ngay sinh không được để trống!");
             check--;
         }
 
         if (kh.getDiaChi() == null || kh.getDiaChi().trim().isEmpty()) {
             System.out.println("Địa chỉ không được để trống!");
+            listError.add("dia chi không được để trống!");
             check--;
         }
 
         String regex = "^(\\+84|0)\\d{9,10}$";
         if (kh.getSdt().matches(regex) == false) {
             System.out.println("Số điện thoại không hợp lệ!");
+            listError.add("Số điện thoại không hợp lệ!");
             check--;
         }
 
         if (kh.getSdt() == null || kh.getSdt().trim().isEmpty()) {
             System.out.println("Số điện thoại không được để trống!");
+            listError.add("Số điện thoại không được để trống!");
             check--;
         }
 
         if (kh.getMatKhau() == null || kh.getMatKhau().isEmpty()) {
             System.out.println("Mật khẩu không được để trống!");
+            listError.add("Mật khẩu không được để trống!");
             check--;
         }
         if (check < 0) {

@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
@@ -46,6 +47,8 @@ public class NsxServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Sửa Thông Tin Nhà Sản Xuất");
         String ma = request.getParameter("id");
         NsxEntity domainModelKH = this.chRepo.findById(UUID.fromString(ma));
         request.setAttribute("nv", domainModelKH);
@@ -58,6 +61,8 @@ public class NsxServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Danh Sách Nhà Sản Xuất");
         request.setAttribute("list", this.chRepo.findAll());
         request.setAttribute("view", "/views/nha_san_xuat/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -68,6 +73,8 @@ public class NsxServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Thêm Nhà Sản Xuất");
         request.setAttribute("view", "/views/nha_san_xuat/create.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);

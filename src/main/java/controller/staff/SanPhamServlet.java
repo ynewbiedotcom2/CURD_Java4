@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
@@ -46,7 +47,10 @@ public class SanPhamServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Sửa Thông Tin Sản Phẩm ");
         String ma = request.getParameter("id");
+
         SanPhamEntity domainModelKH = this.chRepo.findById(UUID.fromString(ma));
         request.setAttribute("nv", domainModelKH);
         request.setAttribute("view", "/views/san_pham/edit.jsp");
@@ -58,6 +62,8 @@ public class SanPhamServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Danh Sách Sản Phẩm");
         request.setAttribute("list", this.chRepo.findAll());
         request.setAttribute("view", "/views/san_pham/index.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
@@ -68,6 +74,8 @@ public class SanPhamServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("curentPage", "Thêm Sản Phẩm");
         request.setAttribute("view", "/views/san_pham/create.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")
                 .forward(request, response);
