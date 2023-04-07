@@ -141,7 +141,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/nsx/store">
+                <form method="POST" action="/CURD_war_exploded/cua_hang/store">
                     <div class="row">
 
                         <div class="form-floating mb-3 col-12">
@@ -176,7 +176,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/san_pham/store">
+                <form method="POST" action="/CURD_war_exploded/chuc_vu/store">
                     <div class="row">
 
                         <div class="form-floating mb-3 col-12">

@@ -115,7 +115,7 @@ public class KhachHangServlet extends HttpServlet {
             BeanUtils.populate(domainModelKH, request.getParameterMap());
             domainModelKH.setId(UUID.fromString(ma));
 
-            if (validateKhachHangEntity(domainModelKH)){
+            if (validateKhachHangEntity2(domainModelKH)) {
                 this.khRepo.update(domainModelKH);
             }
 
@@ -179,6 +179,57 @@ public class KhachHangServlet extends HttpServlet {
 
         String regex = "^(\\+84|0)\\d{9,10}$";
         if (kh.getSdt().matches(regex)==false) {
+            System.out.println("Số điện thoại không hợp lệ!");
+            check--;
+        }
+
+        if (kh.getSdt() == null || kh.getSdt().trim().isEmpty()) {
+            System.out.println("Số điện thoại không được để trống!");
+            check--;
+        }
+
+        if (kh.getMatKhau() == null || kh.getMatKhau().isEmpty()) {
+            System.out.println("Mật khẩu không được để trống!");
+            check--;
+        }
+        if (check < 0) {
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public boolean validateKhachHangEntity2(KhachHangEntity kh) {
+        int check = 0;
+        if (kh.getMa() == null || kh.getMa().trim().isEmpty()) {
+            System.out.println("Mã không được để trống!");
+            check--;
+        }
+
+        if (kh.getTen() == null || kh.getTen().trim().isEmpty()) {
+            System.out.println("Tên không được để trống!");
+            check--;
+        }
+
+        if (kh.getHo() == null || kh.getHo().trim().isEmpty()) {
+            System.out.println("Họ không được để trống!");
+            check--;
+        }
+
+
+        if (kh.getNgaySinh() == null) {
+            System.out.println("Ngày sinh không được để trống!");
+            check--;
+        }
+
+        if (kh.getDiaChi() == null || kh.getDiaChi().trim().isEmpty()) {
+            System.out.println("Địa chỉ không được để trống!");
+            check--;
+        }
+
+        String regex = "^(\\+84|0)\\d{9,10}$";
+        if (kh.getSdt().matches(regex) == false) {
             System.out.println("Số điện thoại không hợp lệ!");
             check--;
         }

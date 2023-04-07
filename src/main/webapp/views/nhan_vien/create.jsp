@@ -55,18 +55,13 @@
                     <div class="col-6">
                         <label>Cửa Hàng</label>
                         <div class="row">
-                            <div class="col-10"><select name="idCh" class="form-select">
+                            <div class="col-12"><select name="idCh" class="form-select">
                                 <c:forEach items="${listCh}" var="sp">
                                     <option value="${sp.id}">${sp.ten}</option>
                                 </c:forEach>
                             </select>
                             </div>
-                            <div class="col-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#myModal2">
-                                    add
-                                </button>
-                            </div>
+
                         </div>
                     </div>
 
@@ -124,41 +119,7 @@
 
 
 
-<div class="modal fade" id="myModal2">
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">THÊM CỬA HÀNG</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/nsx/store">
-                    <div class="row">
-
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="ma" placeholder="x">
-                            <label >Mã</label>
-                        </div>
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" class="form-control" name="ten" placeholder="x">
-                            <label >Tên</label>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <button class="btn btn-primary">LƯU</button>
-                        </div>
-                        <div class="col-6"></div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="myModal3">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -171,7 +132,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/san_pham/store">
+                <form method="POST" action="/CURD_war_exploded/chuc_vu/store">
                     <div class="row">
 
                         <div class="form-floating mb-3 col-12">

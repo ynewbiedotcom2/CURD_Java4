@@ -126,6 +126,59 @@ public class NhanVienServlet extends HttpServlet {
             return false;
         }
         return true;
+    }public boolean validateNhanVienEntity2(NhanVienEntity nv) {
+        int check = 0;
+        if (nv.getMa() == null || nv.getMa().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập mã.");
+            check--;
+        }
+
+
+        if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập tên.");
+            check--;
+        }
+
+        if (nv.getHo() == null || nv.getHo().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập họ.");
+            check--;
+        }
+
+        if (nv.getNgaySinh() == null) {
+            System.out.println("Vui lòng nhập ngày sinh.");
+            check--;
+        }
+
+        if (nv.getDiaChi() == null || nv.getDiaChi().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập địa chỉ.");
+            check--;
+        }
+
+        if (nv.getSdt() == null || nv.getSdt().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập số điện thoại.");
+            check--;
+        }
+
+        if (nv.getMatKhau() == null || nv.getMatKhau().trim().isEmpty()) {
+            System.out.println("Vui lòng nhập mật khẩu.");
+            check--;
+        }
+
+
+        // Kiểm tra định dạng số điện thoại bằng regex
+        String regex = "^(\\+84|0)\\d{9,10}$";
+
+
+        if (nv.getSdt().matches(regex)==false) {
+            System.out.println("Số điện thoại không hợp lệ!");
+            check--;
+        }
+
+
+        if (check < 0) {
+            return false;
+        }
+        return true;
     }
 
     protected void form(
@@ -157,7 +210,7 @@ public class NhanVienServlet extends HttpServlet {
         nv.setNgaySinh(Date.valueOf(date));
         nv.setChucVuByIdCv(cvRepo.findById(UUID.fromString(request.getParameter("idCv"))));
         nv.setCuaHangByIdCh(chRepo.findById(UUID.fromString(request.getParameter("idCh"))));
-        if (validateNhanVienEntity(nv) == true) {
+        if (validateNhanVienEntity2(nv) == true) {
             this.nvRepo.update(nv);
         } else {
             System.out.println("lỗi: ");

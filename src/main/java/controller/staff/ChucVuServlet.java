@@ -112,7 +112,7 @@ public class ChucVuServlet extends HttpServlet {
             BeanUtils.populate(domainModelKH, request.getParameterMap());
             domainModelKH.setId(UUID.fromString(ma));
 
-            if (validateChucVuEntity(domainModelKH)) {
+            if (validateChucVuEntity2(domainModelKH)) {
                 this.chRepo.update(domainModelKH);
             }
 
@@ -150,6 +150,27 @@ public class ChucVuServlet extends HttpServlet {
             System.out.println("Mã Đã tồn tại!");
             check--;
         }
+
+        if (kh.getTen() == null || kh.getTen().trim().isEmpty()) {
+            System.out.println("Tên không được để trống!");
+            check--;
+        }
+
+        if (check < 0) {
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public boolean validateChucVuEntity2(ChucVuEntity kh) {
+        int check = 0;
+        if (kh.getMa() == null || kh.getMa().trim().isEmpty()) {
+            System.out.println("Mã không được để trống!");
+            check--;
+        }
+
 
         if (kh.getTen() == null || kh.getTen().trim().isEmpty()) {
             System.out.println("Tên không được để trống!");

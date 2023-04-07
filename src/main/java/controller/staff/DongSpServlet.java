@@ -112,7 +112,7 @@ public class DongSpServlet extends HttpServlet {
             BeanUtils.populate(domainModelKH, request.getParameterMap());
             domainModelKH.setId(UUID.fromString(ma));
 
-            if (validateDongSpEntity(domainModelKH)) {
+            if (validateDongSpEntity2(domainModelKH)) {
                 this.chRepo.update(domainModelKH);
             }
 
@@ -148,6 +148,24 @@ public class DongSpServlet extends HttpServlet {
             check--;
         } if (this.chRepo.findByMa(kh.getMa()) != null ) {
             System.out.println("Mã Đã tồn tại!");
+            check--;
+        }
+
+        if (kh.getTen() == null || kh.getTen().trim().isEmpty()) {
+            System.out.println("Tên không được để trống!");
+            check--;
+        }
+
+        if (check < 0) {
+            return false;
+        }
+        return true;
+
+
+    } public boolean validateDongSpEntity2(DongSpEntity kh) {
+        int check = 0;
+        if (kh.getMa() == null || kh.getMa().trim().isEmpty()) {
+            System.out.println("Mã không được để trống!");
             check--;
         }
 

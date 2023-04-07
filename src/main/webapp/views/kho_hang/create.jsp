@@ -149,7 +149,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/mau_sac/store">
+                <form method="POST" action="/CURD_war_exploded/mau_sac/store">
                     <div class="row">
                         <div class="col-2">
                             <input style="height: 50px" type="color" class="form-control form-control-color"
@@ -186,7 +186,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/dong_sp/store">
+                <form method="POST" action="/CURD_war_exploded/dong_sp/store">
                     <div class="row">
 
                         <div class="form-floating mb-3 col-12">
@@ -223,7 +223,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/nsx/store">
+                <form method="POST" action="/CURD_war_exploded/nha_san_xuat/store">
                     <div class="row">
 
                         <div class="form-floating mb-3 col-12">
@@ -258,7 +258,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="POST" action="/Demo2_war_exploded/san_pham/store">
+                <form method="POST" action="/CURD_war_exploded/san_pham/store">
                     <div class="row">
 
                         <div class="form-floating mb-3 col-12">

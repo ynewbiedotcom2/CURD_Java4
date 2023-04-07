@@ -176,7 +176,6 @@ public class SanPhamChiTietServlet extends HttpServlet {
         }
 
 
-
         if (ctsp.getSoLuongTon() == null || ctsp.getSoLuongTon() < 0) {
             System.out.println("Số lượng tồn không hợp lệ!");
             check--;
