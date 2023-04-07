@@ -35,6 +35,7 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+
         String uri = request.getRequestURI();
         if (uri.contains("create")) {
             this.create(request, response);
@@ -78,6 +79,7 @@ public class KhachHangServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setAttribute("listError", null);
         session.setAttribute("curentPage", "Thêm Khách Hàng");
         request.setAttribute("view", "/views/khach_hang/create.jsp");
         request.getRequestDispatcher("/views/trang_chu/layout.jsp")

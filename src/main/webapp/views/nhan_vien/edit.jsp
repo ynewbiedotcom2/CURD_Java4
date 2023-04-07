@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-3">
                         <label>Mã Nhân Viên</label>
-                        <input type="text" name="ma" class="form-control" value="${nv.ma}" required/>
+                        <input type="text" name="ma" class="form-control" value="${nv.ma}" readonly required/>
                     </div>
                 </div>
 

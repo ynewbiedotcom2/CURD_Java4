@@ -45,6 +45,7 @@ public class NhanVienServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
+
         if (uri.contains("form")) {
             this.form(request, response);
         } else if (uri.contains("edit")) {
@@ -273,6 +274,7 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
             HttpSession session = request.getSession();
+        session.setAttribute("listError", null);
             session.setAttribute("curentPage", "Thêm Nhân Viên Mới");
             request.setAttribute("listCh", this.chRepo.findAll());
             request.setAttribute("listCv", this.cvRepo.findAll());
@@ -287,6 +289,7 @@ public class NhanVienServlet extends HttpServlet {
     ) throws ServletException, IOException {
             NhanVienEntity x = this.nvRepo.findById(UUID.fromString(request.getParameter("id")));
             HttpSession session = request.getSession();
+        session.setAttribute("listError", null);
             session.setAttribute("curentPage", "Sửa Thông Tin Nhân Viên");
             request.setAttribute("listCh", this.chRepo.findAll());
             request.setAttribute("listCv", this.cvRepo.findAll());
@@ -301,6 +304,7 @@ public class NhanVienServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
         String id = request.getParameter("id");
+
         nvRepo.delete(this.nvRepo.findById(UUID.fromString(id)));
         response.sendRedirect("/CURD_war_exploded/nhan_vien/index");
     }

@@ -26,8 +26,9 @@
             <div class="alert alert-danger alert-dismissible fade show fixed-top" style="width: 300px;left: 1100px"
                  role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <strong>LỖI:</strong> ${errorMessage} <a href="/CURD_war_exploded/trang_chu/error">xem thêm</a></c:if>
-            </div>
+                <strong>LỖI:</strong> ${errorMessage} <a href="/CURD_war_exploded/trang_chu/error">xem thêm</a>  </div></c:if>
+
+
             <h3 class="text text-center">${curentPage}</h3>
 
 

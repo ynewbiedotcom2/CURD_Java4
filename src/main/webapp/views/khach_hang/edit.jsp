@@ -12,7 +12,7 @@
             <div class="row mt-3">
                 <div class="col-6">
                     <label>Mã</label>
-                    <input type="text" name="ma" class="form-control" value="${ kh.ma }" required/>
+                    <input type="text" name="ma" class="form-control" value="${ kh.ma }"  readonly required/>
                 </div>
                 <div class="col-6">
                     <label>Họ</label>

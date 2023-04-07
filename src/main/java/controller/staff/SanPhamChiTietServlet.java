@@ -12,6 +12,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +30,7 @@ public class SanPhamChiTietServlet extends HttpServlet {
     private DongSpRepo dongSpRepo;
     private MauSacRepo msRepo;
     private NsxRepo nsxRepo;
+    List<String> listError= new ArrayList<>();
 
     public SanPhamChiTietServlet() {
         ctspRepo = new ChiTietSanPhamRepo();
@@ -40,7 +42,7 @@ public class SanPhamChiTietServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        listError.removeAll(listError);
         String uri = request.getRequestURI();
         if (uri.contains("create")) {
             this.create(request, response);
@@ -72,6 +74,7 @@ public class SanPhamChiTietServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {HttpSession session = request.getSession();
         session.setAttribute("curentPage", "Tạo Mới Sản Phẩm");
+        session.setAttribute("listError", null);
         request.setAttribute("listMs", this.msRepo.findAll());
         request.setAttribute("listNsx", this.nsxRepo.findAll());
         request.setAttribute("listDong", this.dongSpRepo.findAll());
@@ -101,6 +104,7 @@ public class SanPhamChiTietServlet extends HttpServlet {
             HttpServletResponse response
     ) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setAttribute("listError", null);
         session.setAttribute("curentPage", "Sửa Thông Tin Sản Phẩm");
         ChiTietSpEntity ctsp = this.ctspRepo.findById(request.getParameter("id"));
         request.setAttribute("listMs", this.msRepo.findAll());
@@ -139,6 +143,12 @@ public class SanPhamChiTietServlet extends HttpServlet {
             vm.setNsxByIdNsx(this.nsxRepo.findById(UUID.fromString(request.getParameter("idNsx"))));
             if (validateProduct(vm)){
                 this.ctspRepo.insert(vm);
+
+            }else {
+                HttpSession session = request.getSession();
+
+                session.setAttribute("listError", listError);
+                session.setAttribute("errorMessage", "loi o vi tri");
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -153,6 +163,7 @@ public class SanPhamChiTietServlet extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         ChiTietSpEntity vm = new ChiTietSpEntity();
         try {
             BeanUtils.populate(vm, request.getParameterMap());
@@ -163,6 +174,10 @@ public class SanPhamChiTietServlet extends HttpServlet {
             vm.setNsxByIdNsx(this.nsxRepo.findById(UUID.fromString(request.getParameter("idNsx"))));
             if (validateProduct(vm)){
                 this.ctspRepo.update(vm);
+            }else {
+
+                session.setAttribute("listError", listError);
+                session.setAttribute("errorMessage", "loi o vi tri");
             }
 
         } catch (IllegalAccessException e) {
@@ -178,22 +193,26 @@ public class SanPhamChiTietServlet extends HttpServlet {
         int check = 0;
         if (ctsp.getNamBh() == null || ctsp.getNamBh() < 0) {
             System.out.println("Năm bảo hành không hợp lệ!");
+            listError.add("Năm bảo hành không hợp lệ!");
             check--;
         }
 
 
         if (ctsp.getSoLuongTon() == null || ctsp.getSoLuongTon() < 0) {
             System.out.println("Số lượng tồn không hợp lệ!");
+            listError.add("So luong không hợp lệ!");
             check--;
         }
 
         if (ctsp.getGiaNhap() == null || ctsp.getGiaNhap() < 0) {
             System.out.println("Giá nhập không hợp lệ!");
+            listError.add("Gia Nhap không hợp lệ!");
             check--;
         }
 
         if (ctsp.getGiaBan() == null || ctsp.getGiaBan() < 0) {
             System.out.println("Giá bán không hợp lệ!");
+            listError.add("Gia Ban không hợp lệ!");
             check--;
         }
         if(check<0){
